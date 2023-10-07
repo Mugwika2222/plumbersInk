@@ -74,46 +74,9 @@
 </template>
 
 <script>
-import { ref } from 'vue';
-import APIController from "@/controllers/api";
+
 export default {
-  props:["toggleForm","fetchUsers", "userId"],
-  setup(props){
-     const user =ref({});
-    
-     const GetUser =async() => {
-           user.value = await APIController.FetchUser(props.userId);
-     }
-
-     const AddNewUser =async ()=> {
-       let temUser = await APIController.CreateUser(user.value.name, user.value.email, user.value.password);
-       if (temUser){
-        props.fetchUsers();
-        props.toggleForm();
-       }
-     }
-
-     const UpdateUser =async () => {
-      let temUser = await APIController.UpdateUser(user.value.name, user.value.email, props.userId);
-       if (temUser){
-        props.fetchUsers();
-        props.toggleForm();
-       }
-     }
-
-     return{
-      user,
-      GetUser,
-      AddNewUser,
-      UpdateUser
-
-     }
-  },
-  mounted(){
-    if (this.userId != false){
-         this.GetUser();
-    } 
-  }
+ 
 };
 </script>
 

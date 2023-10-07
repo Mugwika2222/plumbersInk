@@ -18,7 +18,6 @@
           <tr>
             <th class="p-3 text-sm font-semibold tracking-wide text-left">Name.</th>
             <th class="p-3 text-sm font-semibold tracking-wide text-left">Email</th>
-            <th class="p-3 text-sm font-semibold tracking-wide text-left">Role</th>
             <th class="p-3 text-sm font-semibold tracking-wide text-left">Action</th>
           </tr>
         </thead>
@@ -27,7 +26,7 @@
             <td>
               <div class="d-flex px-2">
 
-                <div class="my-auto">
+                <div class="my-auto text-center">
                   <h6 class="p-3 text-sm text-gray-700 whitespace-nowrap">Admin</h6>
                 </div>
               </div>
@@ -36,9 +35,6 @@
               <span class="p-3 text-sm text-gray-700 whitespace-nowrap">admin@test.com</span>
             </td>
             <td class="align-middle text-center">
-              <span class="p-3 text-sm text-gray-700 whitespace-nowrap">admin</span>
-            </td>
-            <td class="align-middle">
               <button class="text-secondary font-weight-bold text-xs me-3 cursor-pointer p-3" data-toggle="tooltip"
                 data-original-title="Edit user" >
                 <i class="fas fa-user-edit"></i>

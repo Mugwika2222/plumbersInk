@@ -39,17 +39,17 @@ const routes = [
       {
         path: "/admin/dashboard",
         component: Dashboard,
-        meta: { isLoggedIn: true}
+        meta: { isLoggedIn: false}
       },
       {
         path: "/admin/settings",
         component: Settings,
-        meta: { isLoggedIn:true}
+        meta: { isLoggedIn:false}
       },
       {
         path: "/admin/tables",
         component: Tables,
-        meta: { isLoggedIn: true}
+        meta: { isLoggedIn: false}
       },
      
      
@@ -82,12 +82,12 @@ const routes = [
   {
     path: "/notification",
     component: Notification,
-    meta: { isLoggedIn:true}
+    meta: { isLoggedIn:false}
   },
   {
     path: "/profile",
     component: Profile,
-    meta: { isLoggedIn:true}
+    meta: { isLoggedIn:false}
   },
   {
     path: "/notfound",

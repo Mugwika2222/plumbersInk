@@ -115,8 +115,8 @@ export default {
           /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&].+$/.test(value) ||
           'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character (@ $ ! % * ? &).',
       ],
-      showPassword: false,
-      showMessage: false,
+      showPassword: true,
+      showMessage: true,
       messageType: '',
       message: '',
       //google: 'URL_TO_GOOGLE_IMAGE', // Replace with the actual URL to the Google image
