@@ -8,18 +8,26 @@
               <h6 class="text-blueGray-500 text-sm font-bold">Sign in with</h6>
             </div>
             <div class="btn-wrapper text-center">
-              <div class="alert" v-if="showSuccessMessage" style="background-color: #4CAF50; color: white;">
-              <span class="close" onclick="this.parentElement.style.display='none';">×</span>
+              <div class="alert" v-if="showSuccessMessage" style="background-color: #358a47; color: white;">
+              <span class="close" onclick="this.parentElement.style.display='none';"></span>
               {{ successMessage }}
             </div>
 
             <div class="alert" v-if="showMessage" :class="messageType">
-              <span class="close" onclick="this.parentElement.style.display='none';">Close Alert</span>
+              <span class="close" onclick="this.parentElement.style.display='none';"></span>
               {{ message }}
             </div>
             </div>
             <hr class="mt-6 border-b-1 border-blueGray-300" />
           </div>
+          <div class="btn-wrapper text-center">
+              <button
+                class="bg-white active:bg-blueGray-50 text-blueGray-700 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-1 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs ease-linear transition-all duration-150"
+                type="button">
+                <img alt="Google" class="w-5 mr-1" :src="google" />
+                Google
+              </button>
+            </div>
           <div class="flex-auto px-4 lg:px-10 py-10 pt-0">
             <div class="text-blueGray-400 text-center mb-3 font-bold">
               <small>Or sign in with credentials</small>
@@ -46,16 +54,6 @@
                   :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'" :type="showPassword ? 'text' : 'password'"
                   label="Password" @click:append="showPassword = !showPassword" />
               </div>
-
-              <!-- Remember Me Checkbox -->
-              <div>
-                <label class="inline-flex items-center cursor-pointer">
-                  <input id="customCheckLogin" type="checkbox" 
-                    class="form-checkbox border-0 rounded text-blueGray-700 ml-1 w-5 h-5 ease-linear transition-all duration-150" />
-                  <span class="ml-2 text-sm font-semibold text-blueGray-600">Remember me</span>
-                </label>
-              </div>
-
               <!-- Sign In Button -->
               <div class="text-center mt-6">
                 <button
@@ -73,8 +71,8 @@
               <small>Forgot password?</small>
             </a>
           </div>
-          <div class="w-1/2 text-right" @click="redirectToRegister">
-              <small>Create new account</small>
+          <div class="lg:text-white w-1/2 text-right" @click="redirectToRegister">
+              <small>Create new account?</small>
           </div>
         </div>
       </div>
@@ -84,10 +82,12 @@
 
 <script>
 import axios from 'axios';
+import google from "@/assets/img/google.svg";
 
 export default {
   data() {
     return {
+      google,
       email: '',
       password: '',
       emailRules: [
@@ -121,7 +121,7 @@ export default {
     // Automatically close the success message after 10 seconds
     if (this.showSuccessMessage) {
       setTimeout(() => {
-        this.$router.push({ path: '/login' }); // Redirect to login page
+        this.$router.push({ path: '/auth/login' }); // Redirect to login page
       }, 10000); // 10 seconds
     }
   },

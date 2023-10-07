@@ -7,7 +7,7 @@
             <div class="text-center mb-3">
               <div v-if="showMessage" class="alert" :class="messageType">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close Alert">
-                  <span aria-hidden="true">&times;</span>
+                  <span aria-hidden="true"></span>
                 </button>
                 {{ message }}
               </div>
@@ -59,20 +59,6 @@
                   :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'" :type="showPassword ? 'text' : 'password'"
                   @click:append="showPassword = !showPassword" />
               </div>
-
-              <div>
-                <label class="inline-flex items-center cursor-pointer">
-                  <input id="customCheckLogin" type="checkbox"
-                    class="form-checkbox border-0 rounded text-blueGray-700 ml-1 w-5 h-5 ease-linear transition-all duration-150" />
-                  <span class="ml-2 text-sm font-semibold text-blueGray-600">
-                    I agree with the
-                    <a href="javascript:void(0)" class="text-emerald-500">
-                      Privacy Policy
-                    </a>
-                  </span>
-                </label>
-              </div>
-
               <div class="text-center mt-6">
                 <button
                   class="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
@@ -115,11 +101,11 @@ export default {
           /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&].+$/.test(value) ||
           'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character (@ $ ! % * ? &).',
       ],
-      showPassword: true,
+      showPassword: false,
       showMessage: true,
       messageType: '',
       message: '',
-      //google: 'URL_TO_GOOGLE_IMAGE', // Replace with the actual URL to the Google image
+      
     };
   },
   methods: {
@@ -137,7 +123,7 @@ export default {
         localStorage.setItem('signup-token', token);
 
         // Redirect
-        this.$router.push({ path: '/login', query: { successMessage: 'Signup successful! Please check your email in order to verify it before logging in.' } });
+        this.$router.push({ path: '/auth/login', query: { successMessage: 'Signup successful! Please check your email in order to verify it before logging in.' } });
       } catch (error) {
         // Handle errors if registration fails
         console.error('Error during registration:', error);
@@ -151,7 +137,7 @@ export default {
       }
     },
     redirectToLogin() {
-      this.$router.push('/login');
+      this.$router.push('/auth/login');
     },
   },
 };

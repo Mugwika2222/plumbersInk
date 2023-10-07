@@ -39,17 +39,17 @@ const routes = [
       {
         path: "/admin/dashboard",
         component: Dashboard,
-        meta: { isLoggedIn: false}
+        meta: { isLoggedIn: true}
       },
       {
         path: "/admin/settings",
         component: Settings,
-        meta: { isLoggedIn:false}
+        meta: { isLoggedIn:true}
       },
       {
         path: "/admin/tables",
         component: Tables,
-        meta: { isLoggedIn: false}
+        meta: { isLoggedIn: true}
       },
      
      
@@ -82,12 +82,12 @@ const routes = [
   {
     path: "/notification",
     component: Notification,
-    meta: { isLoggedIn:false}
+    meta: { isLoggedIn:true}
   },
   {
     path: "/profile",
     component: Profile,
-    meta: { isLoggedIn:false}
+    meta: { isLoggedIn:true}
   },
   {
     path: "/notfound",
@@ -133,8 +133,8 @@ router.beforeEach((to, from, next) => {
           // User has the required role, allow access to the route
           next();
         } else {
-          // User does not have the required role, redirect to /404 or another appropriate route
-          next('/404');
+          // User does not have the required role, redirect to /notfound or another appropriate route
+          next('/notfound');
         }
       } else {
         // No specific roleIds are required, allow access to the route
