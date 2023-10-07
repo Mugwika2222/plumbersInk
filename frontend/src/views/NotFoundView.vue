@@ -12,7 +12,7 @@
           </p><br>
 
           <p><a href="/" class="error-link">Go to the Homepage ?</a>
-            or <a href="/events" class="error-link">Buy some Tickets ?</a>
+           
           </p>
         </div>
       </div>
@@ -30,7 +30,7 @@ export default {
 /* Custom styles for 404 page */
 .error-code {
   font-size: 6rem;
-  color: #15f0dee5;
+  color:  #14ce71e5;
 }
 
 .error-message {
@@ -46,7 +46,7 @@ export default {
   margin-top: 10px;
   margin-bottom: 10px;
   text-decoration: none;
-  color: #15f0dee5;
+  color: #14ce71e5;
   /* Blue color for the link */
 
 }

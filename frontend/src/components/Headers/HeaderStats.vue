@@ -8,9 +8,9 @@
           <div class="w-full lg:w-6/12 xl:w-3/12 px-4">
             <card-stats
               statSubtitle="TRAFFIC"
-              statTitle="350,897"
+              statTitle="1"
               statArrow="up"
-              statPercent="3.48"
+              statPercent="0.11"
               statPercentColor="text-emerald-500"
               statDescripiron="Since last month"
               statIconName="far fa-chart-bar"
@@ -20,9 +20,9 @@
           <div class="w-full lg:w-6/12 xl:w-3/12 px-4">
             <card-stats
               statSubtitle="NEW USERS"
-              statTitle="2,356"
+              statTitle="0"
               statArrow="down"
-              statPercent="3.48"
+              statPercent="0"
               statPercentColor="text-red-500"
               statDescripiron="Since last week"
               statIconName="fas fa-chart-pie"
@@ -32,7 +32,7 @@
           <div class="w-full lg:w-6/12 xl:w-3/12 px-4">
             <card-stats
               statSubtitle="SALES"
-              statTitle="924"
+              statTitle="0"
               statArrow="down"
               statPercent="1.10"
               statPercentColor="text-orange-500"
@@ -44,7 +44,7 @@
           <div class="w-full lg:w-6/12 xl:w-3/12 px-4">
             <card-stats
               statSubtitle="PERFORMANCE"
-              statTitle="49,65%"
+              statTitle="6"
               statArrow="up"
               statPercent="12"
               statPercentColor="text-emerald-500"

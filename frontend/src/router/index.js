@@ -27,8 +27,8 @@ import Landing from "@/views/LandingView.vue";
 import Profile from "@/views/ProfileView.vue";
 import Home from "@/views/HomeView.vue";
 import Notification from "@/views/NotificationView.vue";
-
-
+import VerifyEmail from "@/views/VerifyEmailView.vue";
+import NotFound from "@/views/NotFoundView.vue";
 
 const routes = [
   {
@@ -90,11 +90,19 @@ const routes = [
     meta: { isLoggedIn:true}
   },
   {
+    path: "/notfound",
+    component: NotFound,
+  },
+  {
+    path: "/verifyemail",
+    component: VerifyEmail,
+  },
+  {
     path: "/",
     component: Landing,
     meta: { isLoggedIn: false}
   },
-  { path: "/:pathMatch(.*)*", redirect: "/" },
+  { path: "/:pathMatch(.*)*", redirect: "/notfound" },
 ]
 
 const router = createRouter({
@@ -103,12 +111,39 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  if ('isLoggedIn' in to.meta, to.meta.isLoggedIn && !store.state.isLoggedIn) {
-    next('/auth/login')
-  }else if('isLoggedIn' in to.meta, !to.meta.isLoggedIn && store.state.isLoggedIn){
-    next("/admin/dashboard")
-  }else{
-    next()
+  // Check if the route requires authentication
+  if (to.matched.some(route => route.meta.isLoggedIn)) {
+    const isLoggedIn = store.state.isLoggedIn; // Check if the user is logged in
+
+    if (!isLoggedIn) {
+      // User is not logged in, redirect to the login page
+      next('/auth/login');
+    } else {
+      // User is logged in, check if they have the required roleIds
+      const requiredRoleIds = to.meta.requiredRoleIds; // Get required roleIds from the route's meta
+
+      if (requiredRoleIds) {
+        // User roleIds are stored in localStorage as an array of roleIds
+        const userRoleIds = JSON.parse(localStorage.getItem('roleIds'));
+
+        // Check if the user has any of the required roleIds
+        const hasRequiredRoleId = userRoleIds.some(roleId => requiredRoleIds.includes(roleId));
+
+        if (hasRequiredRoleId) {
+          // User has the required role, allow access to the route
+          next();
+        } else {
+          // User does not have the required role, redirect to /404 or another appropriate route
+          next('/404');
+        }
+      } else {
+        // No specific roleIds are required, allow access to the route
+        next();
+      }
+    }
+  } else {
+    // This route does not require authentication, allow access for all users
+    next();
   }
-})
+});
 export default router

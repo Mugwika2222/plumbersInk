@@ -6,7 +6,13 @@
       ref="btnDropdownRef"
       v-on:click="toggleDropdown($event)"
     >
-      Login
+    <router-link
+        to="/auth/login"
+        class="lg:text-white lg:hover:text-blueGray-200 text-blueGray-700 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
+      >
+        Login
+      </router-link>
+     
     </a>
     <div
       ref="popoverDropdownRef"
@@ -16,46 +22,13 @@
         block: dropdownPopoverShow,
       }"
     >
-      <span
-        class="text-sm pt-2 pb-0 px-4 font-bold block w-full whitespace-nowrap bg-transparent text-blueGray-400"
-      >
-        Admin Layout
-      </span>
-      <router-link
-        to="/admin/dashboard"
-        class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-      >
-        Dashboard
-      </router-link>
-     
-      <router-link
-        to="/admin/home"
-        class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-      >
-        Userdashboard
-      </router-link>
-     
+      
       <div class="h-0 mx-4 my-2 border border-solid border-blueGray-100" />
       <span
         class="text-sm pt-2 pb-0 px-4 font-bold block w-full whitespace-nowrap bg-transparent text-blueGray-400"
       >
         Auth 
       </span>
-      <router-link
-        to="/auth/login"
-        class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-      >
-        Login
-      </router-link>
-     
-      <div class="h-0 mx-4 my-2 border border-solid border-blueGray-100" />
-      <span
-        class="text-sm pt-2 pb-0 px-4 font-bold block w-full whitespace-nowrap bg-transparent text-blueGray-400"
-      >
-        profile
-      </span>
-      
-      
     </div>
   </div>
 </template>
