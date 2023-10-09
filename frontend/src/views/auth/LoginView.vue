@@ -4,9 +4,6 @@
       <div class="w-full lg:w-4/12 px-4">
         <div class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-200 border-0">
           <div class="rounded-t mb-0 px-6 py-6">
-            <div class="text-center mb-3">
-              <h6 class="text-blueGray-500 text-sm font-bold">Sign in with</h6>
-            </div>
             <div class="btn-wrapper text-center">
               <div class="alert" v-if="showSuccessMessage" style="background-color: #358a47; color: white;">
               <span class="close" onclick="this.parentElement.style.display='none';"></span>
@@ -17,6 +14,9 @@
               <span class="close" onclick="this.parentElement.style.display='none';"></span>
               {{ message }}
             </div>
+            </div>
+            <div class="text-center mb-3">
+              <h6 class="text-blueGray-500 text-sm font-bold">Sign in with</h6>
             </div>
             <hr class="mt-6 border-b-1 border-blueGray-300" />
           </div>

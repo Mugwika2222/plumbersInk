@@ -56,7 +56,7 @@ export default {
     },
     statPercent: {
       type: String,
-      default: "0",
+      default: "1",
     },
     // can be any of the text color utilities
     // from tailwindcss

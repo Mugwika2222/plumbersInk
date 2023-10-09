@@ -69,6 +69,11 @@
             </form>
           </div>
         </div>
+        <div class="flex flex-wrap mt-6 relative">
+                <div class="lg:text-white w-1/2 text-left" @click=" redirectToLogin">
+                <small> Already have an account ? Login</small>
+                </div>
+              </div>  
       </div>
     </div>
   </div>
