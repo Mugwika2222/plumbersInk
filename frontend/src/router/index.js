@@ -2,7 +2,6 @@ import { createRouter, createWebHistory } from 'vue-router'
 import store from '../store/index'
 
 
-
 import Admin from "@/layouts/AdminView.vue";
 import Auth from "@/layouts/AuthView.vue";
 
@@ -12,23 +11,13 @@ import Dashboard from "@/views/admin/DashboardView.vue";
 import Settings from "@/views/admin/SettingsView.vue";
 import Tables from "@/views/admin/TablesView.vue";
 
-
-
-
 // views for Auth layout
 
 import Login from "@/views/auth/LoginView.vue";
 import Register from "@/views/auth/RegisterView.vue";
 
 
-// views without layouts
-
-import Landing from "@/views/LandingView.vue";
-import Profile from "@/views/ProfileView.vue";
-import Home from "@/views/HomeView.vue";
-import Notification from "@/views/NotificationView.vue";
-import VerifyEmail from "@/views/VerifyEmailView.vue";
-import NotFound from "@/views/NotFoundView.vue";
+// routes
 
 const routes = [
   {
@@ -39,23 +28,22 @@ const routes = [
       {
         path: "/admin/dashboard",
         component: Dashboard,
-        meta: { isLoggedIn: true}
+        meta: {
+          isLoggedIn: true,
+          requiredRoleIds: [1], // Specify the required role_id(s)
+        },
       },
       {
         path: "/admin/settings",
         component: Settings,
-        meta: { isLoggedIn:true}
       },
       {
         path: "/admin/tables",
         component: Tables,
-        meta: { isLoggedIn: true}
       },
-     
-     
+   
     ],
   },
-  
   {
     path: "/auth",
     redirect: "/auth/login",
@@ -64,46 +52,57 @@ const routes = [
       {
         path: "/auth/login",
         component: Login,
-        meta: { isLoggedIn: false}
       },
       {
         path: "/auth/register",
         component: Register,
-        meta: { isLoggedIn: false}
       },
-    
     ],
   },
   {
-    path: "/home",
-    component: Home,
-    meta: { isLoggedIn:true}
+    path: '/',
+    name: 'landing',
+    component: () => import(/* webpackChunkName: "about" */ '../views/LandingView.vue')
   },
   {
-    path: "/notification",
-    component: Notification,
-    meta: { isLoggedIn:true}
+    path: '/profile',
+    name: 'profile',
+    component: () => import('../views/ProfileView.vue'),
+  
   },
   {
-    path: "/profile",
-    component: Profile,
-    meta: { isLoggedIn:true}
+    path: '/plumber-dashboard',
+    name: 'plumberdashboard',
+    component: () => import('../views/PlumbersDashboardView.vue'),
+    meta: {
+      isLoggedIn: true,
+      requiredRoleIds: [3], // Specify the required role_id(s)
+    },
+  },
+  
+  {
+    path: '/user-dashboard',
+    name: 'userdashboard',
+    component: () => import('../views/UserDashboardView.vue'),
+   
   },
   {
-    path: "/notfound",
-    component: NotFound,
+    path: '/verify-email/:token',
+    name: 'verify-email',
+    component: () => import('../views/VerifyEmailView.vue'),
   },
+ 
   {
-    path: "/verifyemail",
-    component: VerifyEmail,
+    path: '/notfound',
+    name: 'notFound',
+    component: () => import('../views/NotFoundView.vue'),
   },
-  {
-    path: "/",
-    component: Landing,
-    meta: { isLoggedIn: false}
+  { 
+    path: '/:catchAll(.*)', // Match all unmatched routes
+    redirect: '/notfound', 
   },
-  { path: "/:pathMatch(.*)*", redirect: "/notfound" },
 ]
+
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
@@ -117,7 +116,7 @@ router.beforeEach((to, from, next) => {
 
     if (!isLoggedIn) {
       // User is not logged in, redirect to the login page
-      next('/auth/login');
+      next('/login');
     } else {
       // User is logged in, check if they have the required roleIds
       const requiredRoleIds = to.meta.requiredRoleIds; // Get required roleIds from the route's meta

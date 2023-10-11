@@ -144,7 +144,7 @@
           <li class="items-center">
             <router-link
               class="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
-              to="/home"
+              to="/user-dashboard"
             >
               <i class="fas fa-fingerprint text-blueGray-300 mr-2 text-sm"></i>
               Home
@@ -166,7 +166,7 @@
           <li class="items-center">
             <router-link
               class="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
-              to="/notification"
+              to="/plumber-dashboard"
             >
               <i class="fas fa-newspaper text-blueGray-300 mr-2 text-sm"></i>
               Job Notifications:
@@ -174,6 +174,11 @@
           </li>
         </ul>
       </div>
+      <div class="absolute bottom-0 ml-2">
+          <router-link to="/login" class="py-4 px-6 flex items-center space-x-2">
+            <i class="fas fa-sign-out-alt"></i>
+          </router-link>
+        </div>
     </div>
   </nav>
 </template>

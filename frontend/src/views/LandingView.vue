@@ -107,16 +107,18 @@
                 Call our team today to schedule an appointment.
               </p>
 
-              <router-link to="/auth/register" class="font-bold text-blueGray-700 mt-8">
+              <router-link to= "/auth/register" class="font-bold text-blueGray-700 mt-8">
                 <div class="rounded hover:rounded-lg pb-4 grid grid-cols-4 gap-4  ">
                   <button class="rounded-full bg-emerald-500 "> Sign Up As Plumber <i
                       class="fa-solid fa-arrow-right"></i></button>
                 </div>
+              </router-link>
+              <router-link  to= "/auth/register" class="font-bold text-blueGray-700 mt-8">
                 <div class="rounded hover:rounded-lg pb-4 p-2 grid grid-cols-1 gap-1">
                   <button class="rounded-full bg-emerald-500 "> Sign Up As Client <i
                       class="fa-solid fa-arrow-right"></i></button>
                 </div>
-              </router-link>
+              </router-link>  
             </div>
 
             <div class="w-full md:w-4/12 px-4 mr-auto ml-auto">

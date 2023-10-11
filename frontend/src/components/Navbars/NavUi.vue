@@ -19,7 +19,7 @@
           <span class="align-center">Contact</span>
         </router-link>
         <div class="absolute bottom-0 ml-3">
-          <router-link to="/auth/login" class="py-4 px-6 flex items-center space-x-2">
+          <router-link to="/login" class="py-4 px-6 flex items-center space-x-2">
             <i class="fas fa-sign-out-alt"></i>
           </router-link>
         </div>

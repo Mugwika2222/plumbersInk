@@ -1,5 +1,5 @@
 <template>
-  <div class="container mx-auto px-4 h-full">
+  <div class="container mx-auto px-4 h-full mt-20">
     <div class="flex content-center items-center justify-center h-full">
       <div class="w-full lg:w-6/12 px-4">
         <div class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-200 border-0">
@@ -32,32 +32,32 @@
             </div>
             <form @submit.prevent="submitForm">
               <div class="relative w-full mb-3">
-                <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" htmlFor="grid-username">
+                <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" for="username">
                   Name
                 </label>
-                <input id="grid-username"
+                <input id="username"
                   class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                  placeholder="Name" v-model="username" :rules="nameRules" />
+                  placeholder="Name" v-model="username" :rules="nameRules" type="text" autocomplete="name" />
               </div>
 
               <div class="relative w-full mb-3">
-                <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" htmlFor="grid-email">
+                <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" for="email">
                   Email
                 </label>
-                <input id="grid-email"
+                <input id="email"
                   class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                  placeholder="Email" v-model="email" :rules="emailRules" />
+                  placeholder="Email" v-model="email" :rules="emailRules" type="email" autocomplete="email" />
               </div>
 
               <div class="relative w-full mb-3">
-                <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" htmlFor="grid-password">
+                 <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" for="password">
                   Password
-                </label>
-                <input id="grid-password"
+                 </label>
+                 <input id="password"
                   class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                   placeholder="Password" v-model="password" :rules="passwordRules"
                   :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'" :type="showPassword ? 'text' : 'password'"
-                  @click:append="showPassword = !showPassword" />
+                  @click:append="showPassword = !showPassword" autocomplete="password" />
               </div>
               <div class="text-center mt-6">
                 <button
@@ -70,10 +70,10 @@
           </div>
         </div>
         <div class="flex flex-wrap mt-6 relative">
-                <div class="lg:text-white w-1/2 text-left" @click=" redirectToLogin">
-                <small> Already have an account ? Login</small>
-                </div>
-              </div>  
+          <div class=" w-1/2 text-left" @click="redirectToLogin">
+            <small> Already have an account ? Login</small>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -110,13 +110,13 @@ export default {
       showMessage: true,
       messageType: '',
       message: '',
-      
+
     };
   },
   methods: {
     async submitForm() {
       try {
-        const response = await axios.post('http://127.0.0.1:3303/api/v1/signup', {
+        const response = await axios.post('http://localhost:3303/api/v1/signup', {
           username: this.username,
           email: this.email,
           password: this.password,
