@@ -57,7 +57,7 @@
               <!-- Sign In Button -->
               <div class="text-center mt-6">
                 <button
-                  class="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
+                  class=" bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
                   type="submit">
                   Sign In
                 </button>
@@ -67,13 +67,8 @@
           </div>
         </div>
         <div class="flex flex-wrap mt-6 relative">
-          <div class=" lg:text-dark w-1/2">
-            <a href="javascript:void(0)" class="">
-              <small>Forgot password?</small>
-            </a>
-          </div>
-          <div class="w-1/2 text-right" @click="redirectToRegister">
-            <small>Create new account?</small>
+          <div class="w-1/2 text-right cursor-pointer" @click="redirectToRegister">
+            <small>Don't have an account?</small>
           </div>
         </div>
       </div>
@@ -102,27 +97,35 @@ export default {
           /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&].+$/.test(value) ||
           'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character (@ $ ! % * ? &).',
       ],
-      showPassword: false,
-      forgotPasswordDialog: false,
-      forgotPasswordEmail: '',
-      showMessage: false, // Control whether the alert is visible
-      messageType: '', // 'success' or 'error'
-      message: '', // The message to display in the alert
-    };
+       showPassword: false,
+        forgotPasswordDialog: false,
+        forgotPasswordEmail: '',
+        showMessage: false, // Control whether the alert is visible
+        messageType: '', // 'success' or 'error'
+        message: '', // The message to display in the alert
+        successAlert: false,
+        successAlertMessage: '',
+        errorAlert: false,
+        errorMessage: '',
+      };
   },
   computed: {
-    showSuccessMessage() {
-      return this.$route.query.successMessage !== undefined;
+      showSuccessMessage() {
+        return this.$route.query.successMessage !== undefined;
+      },
+      successMessage() {
+        return this.$route.query.successMessage || '';
+      },
+      isFormValid() {
+        return this.emailRules.every(rule => rule(this.email) === true) &&
+          this.passwordRules.every(rule => rule(this.password) === true);
+      },
     },
-    successMessage() {
-      return this.$route.query.successMessage || '';
-    },
-  },
   mounted() {
-    // Automatically close the success message after 10 seconds
+    
     if (this.showSuccessMessage) {
       setTimeout(() => {
-        this.$router.push({ path: '/auth/login' }); // Redirect to login page
+        this.$router.push({ path: '/auth/login' }); 
       }, 10000); // 10 seconds
     }
   },
@@ -136,21 +139,28 @@ export default {
         });
 
         if (response && response.data) {
+          console.log(response);
           // Login was successful
           const token = response.data.token;
           const user = response.data.user; // Fetch the user data from the response
-          const roleIds = response.data.roleIds; // Fetch the roleIds from the response
+          const roleIds = response.data.userRoles.role_id; // Fetch the roleIds from the response
 
           // Save the token, user data, and roleIds in local storage or Vuex store as needed
           localStorage.setItem('token', token);
-          localStorage.setItem('user', JSON.stringify(user)); // Store user data as a string
-          localStorage.setItem('roleIds', JSON.stringify(roleIds)); // Store roleIds as a string
+          localStorage.setItem('user', JSON.stringify(user)); 
+          localStorage.setItem('roleIds', JSON.stringify(roleIds)); 
 
           // Set the isLoggedIn state to true
           this.$store.commit('setIsLoggedIn', true);
 
           // Redirect the user to a protected route or dashboard
-          this.$router.push('/user-dashboard');
+          if (roleIds === 1) {
+            this.$router.push('/admin/dashboard')
+          } else if (roleIds === 2) {
+            this.$router.push('/user-dashboard')
+          } else if (roleIds === 3)
+            this.$router.push('/plumber-dashboard')
+
         } else {
           // Handle the case where response or response.data is undefined
           console.error('Error during login: Response or data is undefined.');
@@ -172,14 +182,43 @@ export default {
       this.$router.push('/auth/register');
     },
     openForgotPasswordDialog() {
-      this.forgotPasswordDialog = true;
-    },
-    sendForgotPasswordEmail() {
-      // Logic to send the reset password email
-      // You can use this.forgotPasswordEmail to access the email entered in the dialog
+        this.forgotPasswordDialog = true;
+      },
+      async sendForgotPasswordEmail() {
+        try {
+          // Create a request payload with the email
+          const requestPayload = { email: this.forgotPasswordEmail };
 
-      this.forgotPasswordDialog = false; // Close the dialog after sending the email
+          // Make a POST request to the API endpoint to send the email
+          const response = await axios.patch('http://127.0.0.1:3003/api/v1/forgot-password', requestPayload);
+
+          // Extract token, email, and firstName from the API response
+          const { token, email, firstName } = response.data;
+
+          // Create a user object with the extracted data
+          const user = {
+            firstName,
+            email,
+            token,
+          };
+
+          // Make a POST request to the /sendforgotPasswordEmail API endpoint
+          await axios.post('http://127.0.0.1:3003/api/v1/sendforgotPasswordEmail', user);
+
+          // Password reset email sent successfully
+          this.forgotPasswordDialog = false; // Close the dialog after sending the email
+          this.successAlert = true;
+          this.successAlertMessage = 'Password reset email sent successfully. Please check your email for further instructions.';
+        } catch (error) {
+          // Handle network errors or other issues
+          console.error('Error sending password reset email:', error);
+          // Display an error message to the user if needed
+          this.errorAlert = true;
+          this.errorMessage = 'You have either entered an unregistered email or there was an error on our end sending the password reset email. Please try again later with a valid email.';
+        }
+      },
+
+
     },
-  },
-};
-</script>
+  };
+  </script>

@@ -28,10 +28,6 @@ const routes = [
       {
         path: "/admin/dashboard",
         component: Dashboard,
-        meta: {
-          isLoggedIn: true,
-          requiredRoleIds: [1], // Specify the required role_id(s)
-        },
       },
       {
         path: "/admin/settings",
@@ -74,10 +70,6 @@ const routes = [
     path: '/plumber-dashboard',
     name: 'plumberdashboard',
     component: () => import('../views/PlumbersDashboardView.vue'),
-    meta: {
-      isLoggedIn: true,
-      requiredRoleIds: [3], // Specify the required role_id(s)
-    },
   },
   
   {
@@ -86,10 +78,26 @@ const routes = [
     component: () => import('../views/UserDashboardView.vue'),
    
   },
+
+  {
+    path: '/phone',
+    name: 'phone',
+    component: () => import('../views/PhoneView.vue'),
+    meta: {
+      isLoggedIn: true, 
+    },
+   
+  },
+ 
   {
     path: '/verify-email/:token',
     name: 'verify-email',
     component: () => import('../views/VerifyEmailView.vue'),
+  },
+  {
+    path: '/forgot-password/:token',
+    name: 'forgot-password',
+    component: () => import('../views/ResetPasswordView.vue'),
   },
  
   {
@@ -116,7 +124,7 @@ router.beforeEach((to, from, next) => {
 
     if (!isLoggedIn) {
       // User is not logged in, redirect to the login page
-      next('/login');
+      next('/auth/login');
     } else {
       // User is logged in, check if they have the required roleIds
       const requiredRoleIds = to.meta.requiredRoleIds; // Get required roleIds from the route's meta

@@ -70,7 +70,7 @@
           </div>
         </div>
         <div class="flex flex-wrap mt-6 relative">
-          <div class=" w-1/2 text-left" @click="redirectToLogin">
+          <div class=" w-1/2 text-left cursor-pointer" @click="redirectToLogin">
             <small> Already have an account ? Login</small>
           </div>
         </div>

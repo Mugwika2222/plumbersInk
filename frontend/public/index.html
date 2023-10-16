@@ -13,5 +13,16 @@
     </noscript>
     <div id="app"></div>
     <!-- built files will be auto injected -->
+    <div x-data="{ isOpen: false }">
+      <button @click="isOpen = !isOpen">Toggle</button>
+      <div x-show="isOpen">This is a hidden element.</div>
+    </div>    
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.x.x/dist/alpine.js" defer></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        Alpine.start();
+      });
+    </script>
+    
   </body>
 </html>
